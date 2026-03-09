@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useState, useRef } from 'react';
+import Magnetic from './Magnetic';
 
 const services = [
     { id: '01', title: 'Continuous Compliance', tools: 'Agentic AI / OSCAL / NIST', desc: 'Automated monitoring of systems and policies to ensure persistent adherence to regulatory standards through continuous posture verification.' },
@@ -31,13 +32,13 @@ export default function WhatWeDo() {
                     {hoveredId && (
                         <motion.div
                             initial={{ scale: 0, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 0.15 }}
+                            animate={{ scale: 1.5, opacity: 0.1 }}
                             exit={{ scale: 0, opacity: 0 }}
-                            transition={{ duration: 0.8, ease: "circOut" }}
-                            className="absolute bg-accent w-[600px] h-[600px] rounded-full blur-[120px]"
+                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                            className="absolute bg-accent w-[800px] h-[800px] rounded-full blur-[150px]"
                             style={{
-                                left: hoveredId === '01' ? '10%' : hoveredId === '02' ? '40%' : hoveredId === '03' ? '60%' : '80%',
-                                top: '50%',
+                                left: hoveredId === '01' ? '15%' : hoveredId === '02' ? '35%' : hoveredId === '03' ? '65%' : '85%',
+                                top: '40%',
                                 transform: 'translate(-50%, -50%)'
                             }}
                         />
@@ -93,52 +94,88 @@ export default function WhatWeDo() {
 function ServiceRow({ service, idx, isOpen, isHovered, onToggle, onHover, onLeave }: any) {
     return (
         <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: idx * 0.1 }}
+            transition={{ duration: 1, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
             onClick={onToggle}
-            className={`border-b border-white/10 transition-all duration-700 cursor-pointer overflow-hidden group ${isHovered ? 'bg-white/[0.02]' : ''}`}
+            className={`border-b border-white/10 transition-all duration-700 cursor-pointer overflow-hidden group relative ${isHovered ? 'bg-white/[0.02]' : ''}`}
         >
-            <div className={`py-12 md:py-20 flex items-center justify-between px-4 transition-all duration-500 ease-in-out`}>
+            {/* Background Marquee Effect on Hover */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                <motion.div
+                    animate={{ x: [0, -1000] }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="whitespace-nowrap flex items-center h-full"
+                >
+                    <span className="text-[15rem] font-black font-bebas text-white/[0.03] uppercase leading-none tracking-tighter">
+                        {service.title} &nbsp; {service.tools} &nbsp; {service.title} &nbsp; {service.tools} &nbsp;
+                    </span>
+                    <span className="text-[15rem] font-black font-bebas text-white/[0.03] uppercase leading-none tracking-tighter">
+                        {service.title} &nbsp; {service.tools} &nbsp; {service.title} &nbsp; {service.tools} &nbsp;
+                    </span>
+                </motion.div>
+            </div>
+
+            <div className={`py-12 md:py-20 flex items-center justify-between px-4 transition-all duration-500 ease-in-out relative z-10`}>
                 <div className="flex items-center gap-8 md:gap-24 overflow-hidden">
                     <span className={`text-2xl font-bebas transition-colors duration-500 ${isHovered || isOpen ? 'text-accent' : 'text-white/20'}`}>
                         {service.id}
                     </span>
-                    <h3 className={`text-5xl md:text-9xl font-normal font-bebas uppercase tracking-tighter transition-all duration-700 leading-none ${isOpen || isHovered ? 'text-white' : 'text-white/40'}`}>
-                        {service.title}
-                    </h3>
+                    <div className="flex flex-col relative">
+                        <h3 className={`text-5xl md:text-9xl font-normal font-bebas uppercase tracking-tighter transition-all duration-700 leading-none pr-8 ${isOpen || isHovered ? 'text-white' : 'text-white/40'}`}>
+                            {service.title}
+                        </h3>
+                        {/* Animated Line Under Title */}
+                        <motion.div
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: isHovered ? 1 : 0 }}
+                            className="h-[2px] w-full bg-accent origin-left mt-2"
+                        />
+                    </div>
                 </div>
 
-                <motion.div
-                    animate={{ rotate: isOpen ? 45 : 0, scale: isHovered ? 1.2 : 1 }}
-                    className={`w-14 h-14 md:w-20 md:h-20 border rounded-full flex items-center justify-center transition-all duration-500 ${isOpen || isHovered ? 'border-accent bg-accent text-black' : 'border-white/20 text-white/20'}`}
-                >
-                    <span className="text-3xl md:text-5xl font-light">+</span>
-                </motion.div>
+                <Magnetic strength={0.2}>
+                    <motion.div
+                        animate={{ rotate: isOpen ? 45 : 0, scale: isHovered ? 1.2 : 1 }}
+                        className={`w-14 h-14 md:w-20 md:h-20 border rounded-full flex items-center justify-center transition-all duration-500 ${isOpen || isHovered ? 'border-accent bg-accent text-black' : 'border-white/20 text-white/20'}`}
+                    >
+                        <span className="text-3xl md:text-5xl font-light">+</span>
+                    </motion.div>
+                </Magnetic>
             </div>
 
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ height: 0, opacity: 0, y: -20 }}
-                        animate={{ height: 'auto', opacity: 1, y: 0 }}
-                        exit={{ height: 0, opacity: 0, y: -20 }}
-                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden"
                     >
-                        <div className="pb-20 pl-16 md:pl-44 flex flex-col md:flex-row gap-12 md:gap-24 justify-between pr-12">
-                            <p className="text-2xl md:text-4xl font-normal text-white/80 max-w-3xl leading-tight font-bebas uppercase tracking-tight">
+                        <div className="pb-20 pl-16 md:pl-44 flex flex-col md:flex-row gap-12 md:gap-24 justify-between pr-12 relative z-10">
+                            <motion.p
+                                initial={{ y: 20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="text-2xl md:text-4xl font-normal text-white/80 max-w-3xl leading-tight font-bebas uppercase tracking-tight"
+                            >
                                 {service.desc}
-                            </p>
-                            <div className="flex flex-col gap-4 border-l border-accent/30 pl-8 min-w-[300px]">
+                            </motion.p>
+                            <motion.div
+                                initial={{ x: 20, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 0.3 }}
+                                className="flex flex-col gap-4 border-l border-accent/30 pl-8 min-w-[300px]"
+                            >
                                 <span className="text-accent text-xs uppercase tracking-[0.4em] font-black">Expertise Tools</span>
                                 <span className="text-xl md:text-2xl font-normal font-bebas uppercase tracking-widest text-white/60">
                                     {service.tools}
                                 </span>
-                            </div>
+                            </motion.div>
                         </div>
                     </motion.div>
                 )}
@@ -146,3 +183,4 @@ function ServiceRow({ service, idx, isOpen, isHovered, onToggle, onHover, onLeav
         </motion.div>
     );
 }
+

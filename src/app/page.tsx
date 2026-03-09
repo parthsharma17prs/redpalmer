@@ -10,12 +10,15 @@ import FeaturedWorks from '@/components/FeaturedWorks';
 import WhatWeDo from '@/components/WhatWeDo';
 import ProcessGrid from '@/components/ProcessGrid';
 import MetricGrid from '@/components/MetricGrid';
+import CounterSection from '@/components/CounterSection';
 import SystemBlueprint from '@/components/SystemBlueprint';
 import CoreManifesto from '@/components/CoreManifesto';
 import TeamPortraits from '@/components/TeamPortraits';
 import GoodWords from '@/components/GoodWords';
 import Awards from '@/components/Awards';
 import LabNotes from '@/components/LabNotes';
+import StickySection from '@/components/StickySection';
+import CallToAction from '@/components/CallToAction';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import Preloader from '@/components/Preloader';
@@ -42,15 +45,38 @@ export default function Home() {
         <Marquee text="Provable Compliance  •  Zero Data Exposure  •  Zero-Knowledge Proofs  •  " />
         <WhatWeDo />
         <MetricGrid />
+        <CounterSection />
         <ProcessGrid />
+
         <SystemBlueprint />
-        <FeaturedWorks />
+
         <GiantText text="+PROOF®" />
-        <CoreManifesto />
-        <Awards />
-        <TeamPortraits />
-        <GoodWords />
-        <LabNotes />
+
+        <StickySection index={1}>
+          <FeaturedWorks />
+        </StickySection>
+
+        <StickySection index={2}>
+          <CoreManifesto />
+        </StickySection>
+
+        <StickySection index={3}>
+          <Awards />
+        </StickySection>
+
+        <StickySection index={4}>
+          <TeamPortraits />
+        </StickySection>
+
+        <StickySection index={5}>
+          <GoodWords />
+        </StickySection>
+
+        <StickySection index={6}>
+          <LabNotes />
+        </StickySection>
+
+        <CallToAction />
         <Footer />
       </motion.main>
     </>

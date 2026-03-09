@@ -50,47 +50,42 @@ export default function ProcessGrid() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                        className={`group relative p-8 h-[350px] md:h-[400px] border-r border-b border-white/10 flex flex-col justify-between cursor-pointer overflow-hidden transition-colors duration-500`}
+                        className={`group relative p-10 h-[400px] md:h-[450px] border-r border-b border-white/10 flex flex-col justify-between cursor-pointer overflow-hidden transition-all duration-700`}
                         onMouseEnter={() => setHoveredIdx(idx)}
                         onMouseLeave={() => setHoveredIdx(null)}
                         animate={{
                             backgroundColor: hoveredIdx === idx ? 'var(--accent)' : 'transparent',
-                            color: hoveredIdx === idx ? '#fff' : '#fff'
                         }}
                     >
-                        <div className="text-xl md:text-2xl font-bold opacity-50 relative z-10 transition-opacity">
-                            {step.id}
+                        <div className="text-2xl font-bebas text-accent group-hover:text-white opacity-40 group-hover:opacity-100 relative z-10 transition-all duration-500">
+                            {step.id} —
                         </div>
 
                         <div className="relative z-10">
-                            <h3 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase mb-4 tracking-tighter">
+                            <h3 className="text-4xl md:text-5xl lg:text-3xl font-normal font-bebas uppercase mb-6 tracking-tighter leading-none group-hover:text-white transition-colors duration-500">
                                 {step.title}
                             </h3>
 
-                            <motion.p
-                                className="text-lg md:text-xl font-medium relative"
-                                animate={{
-                                    opacity: hoveredIdx === idx ? 1 : 0.6,
-                                }}
-                            >
-                                <span className={`${hoveredIdx === idx ? 'text-white' : 'text-transparent bg-clip-text bg-gradient-to-br from-white/40 via-white/10 to-transparent'}`}>
-                                    {step.desc}
-                                </span>
-                            </motion.p>
+                            <p className="text-xl md:text-2xl font-normal font-bebas uppercase leading-tight tracking-tighter text-white/40 group-hover:text-white/90 transition-colors duration-500">
+                                {step.desc}
+                            </p>
                         </div>
 
-                        {/* Background Arrow that scales up on hover */}
+                        <div className="flex items-center gap-4 relative z-10">
+                            <div className="h-[1px] w-8 bg-accent/30 group-hover:bg-white/50 group-hover:w-16 transition-all duration-700" />
+                            <span className="text-[10px] uppercase tracking-widest text-white/20 group-hover:text-white transition-colors">Operational</span>
+                        </div>
+
+                        {/* Background Giant Text on Hover */}
                         <motion.div
-                            className="absolute top-8 right-8 text-8xl md:text-[150px] font-thin opacity-0 -rotate-45 pointer-events-none"
+                            className="absolute -bottom-10 -right-10 text-[12rem] font-black font-bebas text-white/[0.02] group-hover:text-white/[0.05] uppercase leading-none tracking-tighter pointer-events-none select-none"
                             animate={{
-                                opacity: hoveredIdx === idx ? 0.2 : 0,
-                                x: hoveredIdx === idx ? 0 : -20,
-                                y: hoveredIdx === idx ? 0 : 20,
-                                scale: hoveredIdx === idx ? 1 : 0.5
+                                y: hoveredIdx === idx ? 0 : 50,
+                                opacity: hoveredIdx === idx ? 1 : 0,
                             }}
-                            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         >
-                            →
+                            {step.id}
                         </motion.div>
                     </motion.div>
                 ))}

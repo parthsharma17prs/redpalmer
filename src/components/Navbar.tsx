@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Magnetic from './Magnetic';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -30,13 +31,15 @@ export default function Navbar() {
                     <span className="text-accent">+</span>CompliLedger<sup className="text-sm font-medium">®</sup>
                 </Link>
 
-                <button
-                    onClick={() => setIsOpen(true)}
-                    className="flex flex-col gap-[6px] w-[32px] hover:scale-105 transition-transform"
-                >
-                    <div className="w-full h-[2px] bg-white"></div>
-                    <div className="w-2/3 h-[2px] bg-white self-end"></div>
-                </button>
+                <Magnetic strength={0.2}>
+                    <button
+                        onClick={() => setIsOpen(true)}
+                        className="flex flex-col gap-[6px] w-[32px] group"
+                    >
+                        <div className="w-full h-[2px] bg-white transition-transform group-hover:scale-x-110"></div>
+                        <div className="w-2/3 h-[2px] bg-white self-end transition-transform group-hover:scale-x-125"></div>
+                    </button>
+                </Magnetic>
             </motion.nav>
 
             {/* Full Screen Overlay */}

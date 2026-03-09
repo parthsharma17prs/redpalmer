@@ -18,18 +18,32 @@ export default function CoreManifesto() {
         offset: ["start end", "end start"]
     });
 
+    const backgroundX = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+    const glowY = useTransform(scrollYProgress, [0, 1], ["-20%", "120%"]);
+
     return (
-        <section ref={containerRef} className="py-40 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32">
-            <div className="flex flex-col gap-8 md:gap-12 relative z-10 border-l border-white/5 pl-12">
+        <section ref={containerRef} className="py-40 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32 min-h-screen flex items-center">
+
+            {/* Background High-Velocity Layer */}
+            <motion.div
+                style={{ x: backgroundX }}
+                className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.03] pointer-events-none select-none z-0"
+            >
+                <span className="text-[40rem] font-black font-bebas text-white leading-none tracking-tighter uppercase">
+                    INFRASTRUCTURE_MANIFESTO_0x902
+                </span>
+            </motion.div>
+
+            {/* Moving Glow Mask */}
+            <motion.div
+                style={{ top: glowY }}
+                className="absolute left-0 w-full h-[50%] bg-accent/10 blur-[150px] -z-10 pointer-events-none"
+            />
+
+            <div className="flex flex-col gap-8 md:gap-12 relative z-10 border-l border-white/5 pl-12 w-full">
                 {lines.map((line, i) => (
                     <ManifestoLine key={i} text={line} index={i} scrollYProgress={scrollYProgress} />
                 ))}
-            </div>
-
-            <div className="absolute right-0 bottom-0 opacity-5 pointer-events-none select-none">
-                <span className="text-[20rem] font-black font-bebas text-white leading-none tracking-tighter uppercase">
-                    MANIFESTO
-                </span>
             </div>
         </section>
     );

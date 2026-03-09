@@ -35,7 +35,7 @@ export default function LabNotes() {
     ];
 
     return (
-        <section className="py-40 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32">
+        <section className="py-20 px-6 md:px-12 bg-black text-white w-full border-t border-white/10 relative overflow-hidden xl:pl-32">
 
             {/* Phase Indicator */}
             <div className="absolute left-6 top-60 hidden xl:flex flex-col items-center gap-12 z-20">
@@ -53,7 +53,7 @@ export default function LabNotes() {
                         initial={{ x: -30, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1 }}
                         viewport={{ once: true }}
-                        className="text-6xl md:text-8xl lg:text-9xl font-normal font-bebas tracking-tighter uppercase leading-[0.8]"
+                        className="text-5xl md:text-7xl lg:text-[7rem] font-normal font-bebas tracking-tighter uppercase leading-[0.9] py-2"
                     >
                         INTEL & <br /><span className="text-accent underline underline-offset-[20px] decoration-accent/20">REPORTS</span>
                     </motion.h2>
@@ -80,7 +80,7 @@ export default function LabNotes() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                        className="group cursor-pointer border-r border-b border-white/10 p-12 hover:bg-white/[0.01] transition-all duration-700 relative flex flex-col justify-between min-h-[500px]"
+                        className="group cursor-pointer border-r border-b border-white/10 p-10 hover:bg-white/[0.01] transition-all duration-700 relative flex flex-col justify-between min-h-[350px]"
                     >
                         <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-1000 overflow-hidden pointer-events-none">
                             <img src={post.img} className="w-full h-full object-cover grayscale" alt="" />
@@ -96,7 +96,7 @@ export default function LabNotes() {
                                 </span>
                             </div>
 
-                            <h3 className="text-4xl lg:text-5xl font-normal font-bebas uppercase tracking-tighter leading-none group-hover:text-accent transition-colors duration-500">
+                            <h3 className="text-3xl lg:text-4xl font-normal font-bebas uppercase tracking-tighter leading-none group-hover:text-accent transition-colors duration-500">
                                 {post.title}
                             </h3>
                         </div>
